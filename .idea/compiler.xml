@@ -21,6 +21,6 @@
         <module name="boardServicePratice.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="11" />
+    <bytecodeTargetLevel target="16" />
   </component>
 </project>
