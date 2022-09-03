@@ -5,7 +5,7 @@
 ## 개발 환경
 
 * Intellij IDEA Community 2022.1.1 ~ 2022.1.3
-* Java 11
+* Java 18
 * Gradle 7.4.1
 * Spring Boot 2.7.0
 
