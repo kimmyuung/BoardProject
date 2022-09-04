@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 import javax.persistence.*;
@@ -22,7 +23,7 @@ import java.util.Set;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createBy")
         })
-
+@EntityListeners(AuditingEntityListener.class)
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
