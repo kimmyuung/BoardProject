@@ -23,8 +23,8 @@ import java.util.Set;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createBy")
         })
-@EntityListeners(AuditingEntityListener.class)
-public class Article {
+// @EntityListeners(AuditingEntityListener.class)
+public class Article extends AuditingFields{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,19 +41,22 @@ public class Article {
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
-    @CreatedDate
-    private LocalDateTime createdAt; // 생성일시
-
-    @CreatedBy @Column(nullable = false)
-    private String createBy; // 생성자
-    @LastModifiedDate @Column(nullable = false, length = 100)
-
-    private LocalDateTime modifiedAt; // 수정일시
-
-    @LastModifiedBy @Column(nullable = false, length = 100)
-    private String modifiedBy; // 수정자
-
-
+//    @CreatedDate
+//    private LocalDateTime createdAt; // 생성일시
+//
+//    @CreatedBy @Column(nullable = false)
+//    private String createBy; // 생성자
+//
+//    @LastModifiedDate @Column(nullable = false, length = 100)
+//    private LocalDateTime modifiedAt; // 수정일시
+//
+//    @LastModifiedBy @Column(nullable = false, length = 100)
+//    private String modifiedBy; // 수정자
+//
+//    @Embedded AAA aa; // 묶을 컬럼들 추출
+//    class AAA {
+//        // 묶을 자료들 삽입
+//    }
     protected Article() {}
 
     private Article(String title, String content, String hashtag) {

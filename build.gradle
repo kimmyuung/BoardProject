@@ -1,12 +1,13 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.3'
-    id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+    id 'org.springframework.boot' version '2.7.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
 group 'org.example'
 version '1.0-SNAPSHOT'
-sourceCompatibility = "16"
+sourceCompatibility = "18"
+
 repositories {
     mavenCentral()
 }
@@ -41,4 +42,25 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-targetCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_18
+
+// Querydsl 설정부
+def generated = 'src/main/generated'
+
+// querydsl QClass 파일 생성 위치를 지정
+tasks.withType(JavaCompile) {
+    options.getGeneratedSourceOutputDirectory().set(file(generated))
+}
+
+// java source set 에 querydsl QClass 위치 추가
+sourceSets {
+    main.java.srcDirs += [ generated ]
+}
+
+// gradle clean 시에 QClass 디렉토리 삭제
+clean {
+    delete file(generated)
+}
+
+
+
