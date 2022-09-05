@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Article Page</title>
+</head>
+<body>
+<header id="h1">
+
+  <hr>
+
+</header>
+<main>
+  <form>
+    <label for="search-type" hidden>Search Type</label>
+    <select id="search-type" name="search-type">
+      <option>Title</option>
+      <option>Content</option>
+      <option>Id</option>
+      <option>NickName</option>
+      <option>HashTag</option>
+    </select>
+    <label for="search-value" hidden>Search Words</label>
+    <input id="search-value" type="search" placeholder="search word" name="search-value">
+    <button type="submit">Search</button>
+  </form>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>HashTag</th>
+      <th>Writer</th>
+      <th>WriteDate</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>1. First Article</td>
+      <td>#java</td>
+      <td>Uno</td>
+      <td>2022-01-01</td>
+
+      <td>2. Second Article</td>
+      <td>#java</td>
+      <td>Uno</td>
+      <td>2022-01-02</td>
+
+      <td>3. Third Article</td>
+      <td>#java</td>
+      <td>Uno</td>
+      <td>2022-01-03</td>
+    </tr>
+    </tbody>
+  </table>
+  <nav>
+    <table>
+      <tr>
+        <td>Previous</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>Next</td>
+      </tr>
+    </table>
+  </nav>
+</main>
+
+<footer id="f1"></footer>
+</body>
+</html>
