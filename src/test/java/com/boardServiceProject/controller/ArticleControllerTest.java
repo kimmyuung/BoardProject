@@ -43,7 +43,7 @@ class ArticleControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(view().name("articles/detail")) // 인덱스가 있는지 검사
                 .andExpect(model().attributeExists("articleComments"))
-                .andExpect(model().attributeExists("articles"));
+                .andExpect(model().attributeExists("article"));
     }
 
     @Disabled("Need for development")
