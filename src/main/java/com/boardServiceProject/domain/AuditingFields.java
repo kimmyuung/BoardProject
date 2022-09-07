@@ -18,7 +18,9 @@ import java.time.LocalDateTime;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class AuditingFields {
+public abstract class AuditingFields {
+    // 추상 클래스로 변경
+    // 혼자 엔티티로 사용하지 않고 다른 엔티티에 상속하여 사용하기 때문
 
     // 파싱
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
