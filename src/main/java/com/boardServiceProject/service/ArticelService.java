@@ -2,6 +2,7 @@ package com.boardServiceProject.service;
 
 import com.boardServiceProject.domain.type.SearchType;
 import com.boardServiceProject.dto.ArticleDto;
+import com.boardServiceProject.dto.ArticleUpdateDto;
 import com.boardServiceProject.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service
 public class ArticelService {
+
     private final ArticleRepository articleRepository;
 
 
@@ -27,5 +29,16 @@ public class ArticelService {
     public ArticleDto searchArtice(long articleId) {
         return null;
         // 레포스토리에서 검색 기능 구현
+    }
+
+    public void saveArticle(ArticleDto dto) {
+
+    }
+
+    public void updateArticle(long l, ArticleUpdateDto of) {
+
+    }
+
+    public void deleteArticle(long l) {
     }
 }
