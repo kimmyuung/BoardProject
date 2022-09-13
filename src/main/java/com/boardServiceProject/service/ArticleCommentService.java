@@ -3,6 +3,7 @@ package com.boardServiceProject.service;
 import com.boardServiceProject.domain.Article;
 import com.boardServiceProject.domain.ArticleComment;
 import com.boardServiceProject.domain.UserAccount;
+import com.boardServiceProject.dto.ArticleCommentDto;
 import com.boardServiceProject.repository.ArticleCommentRepository;
 import com.boardServiceProject.repository.ArticleRepository;
 import com.boardServiceProject.repository.UserAccountRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 
 @Slf4j

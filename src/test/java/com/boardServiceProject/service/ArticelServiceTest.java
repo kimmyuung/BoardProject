@@ -1,7 +1,6 @@
 package com.boardServiceProject.service;
 
 import com.boardServiceProject.domain.Article;
-import com.boardServiceProject.domain.type.SearchType;
 import com.boardServiceProject.dto.ArticleDto;
 import com.boardServiceProject.dto.ArticleUpdateDto;
 import com.boardServiceProject.repository.ArticleRepository;
@@ -12,8 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
-
-import java.time.LocalDateTime;
+import org.springframework.data.domain.Pageable;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -34,14 +32,15 @@ class ArticelServiceTest {
     @DisplayName("비즈니스 로직 - 게시글 검색 시 게시글 리스트 반환")
     @Test
     void givenSearchParameters_whenSearchArticles_thenReturnArticlelist() {
-        // Given
+        Pageable pageable = Pageable.ofSize(20);
+        given(articleRepository.findAll(pageable)).willReturn(Page.empty());
 
         // When
-        Page<ArticleDto> articleDtoList =
-            sut.searchArticeles(SearchType.TITLE, "keyword"); // 제목, 본문, 아이디, 닉네임, 해시태그
+        Page<ArticleDto> articles = sut.searchArticeles(null, null, pageable);
 
         // Then
-        assertThat(articleDtoList).isNotNull();
+        assertThat(articles).isEmpty();
+        then(articleRepository).should().findAll(pageable);
     }
 
     @DisplayName("게시글을 조회하면, 게시글을 반환")
@@ -67,7 +66,7 @@ class ArticelServiceTest {
         // save 메소드 호출
 
         // When
-        sut.saveArticle(ArticleDto.of(LocalDateTime.now(),"Kim", "test", "test", "#java"));
+        //sut.saveArticle(ArticleDto.of());
 
         // Then
         then(articleRepository).should().save(any(Article.class));

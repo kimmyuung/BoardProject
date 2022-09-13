@@ -14,7 +14,7 @@ spring:
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    open-in-view: false
+    open-in-view: false # OSIV 비활성화
     defer-datasource-initialization: true
     hibernate.ddl-auto: create
     show-sql: true
