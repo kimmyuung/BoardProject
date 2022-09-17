@@ -2,6 +2,8 @@ package com.boardServiceProject.service;
 
 import com.boardServiceProject.domain.Article;
 import com.boardServiceProject.domain.ArticleComment;
+import com.boardServiceProject.domain.UserAccount;
+import com.boardServiceProject.dto.UserAccountDto;
 import com.boardServiceProject.repository.ArticleCommentRepository;
 import com.boardServiceProject.repository.ArticleRepository;
 import com.boardServiceProject.repository.UserAccountRepository;
@@ -18,8 +20,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
+import static org.mockito.BDDMockito.*;
 
 @DisplayName("비즈니스 로직 - 댓글")
 @ExtendWith(MockitoExtension.class)

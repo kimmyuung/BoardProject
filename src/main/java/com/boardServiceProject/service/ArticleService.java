@@ -3,7 +3,6 @@ package com.boardServiceProject.service;
 import com.boardServiceProject.domain.Article;
 import com.boardServiceProject.domain.type.SearchType;
 import com.boardServiceProject.dto.ArticleDto;
-import com.boardServiceProject.dto.ArticleUpdateDto;
 import com.boardServiceProject.dto.ArticleWithCommentsDto;
 import com.boardServiceProject.dto.UserAccountDto;
 import com.boardServiceProject.repository.ArticleRepository;
@@ -61,7 +60,7 @@ public class ArticleService {
         articleRepository.save(dto.toEntity());
     }
 
-    public void updateArticle(long l, ArticleUpdateDto of) {
+    public void updateArticle(long l, ArticleDto of) {
         try {
             Article article = articleRepository.getReferenceById(l);
             if (of.title() != null) {
@@ -129,7 +128,10 @@ public class ArticleService {
         );
     }
 
-    public Object getArticleWithComments(Long articleId) {
+    public ArticleWithCommentsDto getArticleWithComments(Long articleId) {
         return null;
+    }
+
+    public void deleteArticle(Long articleId, String username) {
     }
 }
