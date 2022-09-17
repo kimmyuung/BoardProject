@@ -12,17 +12,20 @@ import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import java.util.List;
+
 @RepositoryRestResource
 public interface ArticleRepository extends JpaRepository<Article, Long>,
         QuerydslBinderCustomizer<QArticle>,
         QuerydslPredicateExecutor<Article> {
 
     Page<Article> findByTitleContaining(String title, Pageable pageable);
-
     Page<Article> findByContentContaining(String content, Pageable pageable);
-    Page<Article> findByUserAccount_USERIdContaining(String userId, Pageable pageable);
+    Page<Article> findByUserAccount_UserIdContaining(String userId, Pageable pageable);
     Page<Article> findByUserAccount_NicknameContaining(String nickname, Pageable pageable);
-    Page<Article> findByHashTag(String hashtag, Pageable pageable);
+    Page<Article> findByHashtag(String hashtag, Pageable pageable);
+
+    void deleteByIdAndUserAccount_UserId(Long articleId, String userid);
 
     @Override
     default void customize(QuerydslBindings bindings, QArticle root){
@@ -37,4 +40,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long>,
         bindings.bind(root.createdAt).first(DateTimeExpression::eq); // datetimeformat
         bindings.bind(root.createBy).first(StringExpression::containsIgnoreCase);
     }
+
+    List<String> findAllDistinctHashtags();
 }

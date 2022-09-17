@@ -3,6 +3,7 @@ package com.boardServiceProject.service;
 import com.boardServiceProject.domain.Article;
 import com.boardServiceProject.dto.ArticleDto;
 import com.boardServiceProject.dto.ArticleUpdateDto;
+import com.boardServiceProject.dto.UserAccountDto;
 import com.boardServiceProject.repository.ArticleRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.*;
@@ -22,7 +25,7 @@ import static org.mockito.BDDMockito.*;
 class ArticelServiceTest {
 
     @InjectMocks
-    private ArticelService sut;
+    private ArticleService sut;
     // test 대상
 
     @Mock
@@ -104,5 +107,35 @@ class ArticelServiceTest {
         // Then
         then(articleRepository).should().delete(any(Article.class));
         // save를 호출했는지 테스트
+    }
+    private ArticleDto createArticleDto() {
+        return createArticleDto("title", "content", "#java");
+    }
+
+    private ArticleDto createArticleDto(String title, String content, String hashtag) {
+        return ArticleDto.of(
+                1L,
+                createUserAccountDto(),
+                title,
+                content,
+                hashtag,
+                LocalDateTime.now(),
+                "Uno",
+                LocalDateTime.now(),
+                "Uno");
+    }
+
+    private UserAccountDto createUserAccountDto() {
+        return UserAccountDto.of(
+                "uno",
+                "password",
+                "uno@mail.com",
+                "Uno",
+                "This is memo",
+                LocalDateTime.now(),
+                "uno",
+                LocalDateTime.now(),
+                "uno"
+        );
     }
 }
