@@ -7,6 +7,7 @@ import com.boardServiceProject.dto.ArticleDto;
 import com.boardServiceProject.dto.ArticleWithCommentsDto;
 import com.boardServiceProject.dto.UserAccountDto;
 import com.boardServiceProject.service.ArticleService;
+import com.boardServiceProject.service.PaginationService;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,11 +48,10 @@ class ArticleControllerTest {
 
     @MockBean private ArticleService articleService;
 
-
+    @MockBean private PaginationService paginationService;
 
     ArticleControllerTest(
             @Autowired MockMvc mvc
-
     ) {
         this.mvc = mvc;
 
@@ -63,7 +63,7 @@ class ArticleControllerTest {
     void givenNothing_whenRequestingArticlesView_thenReturnsArticlesView() throws Exception {
         // Given
         given(articleService.searchArticeles(eq(null), eq(null), any(Pageable.class))).willReturn(Page.empty());
-
+        given(paginationService.getPaginationBarNumbers(anyInt(), anyInt())).willReturn(List.of(0, 1, 2, 3, 4));
 
         // When & Then
         mvc.perform(get("/articles"))
@@ -74,7 +74,7 @@ class ArticleControllerTest {
                 .andExpect(model().attributeExists("paginationBarNumbers"))
                 .andExpect(model().attributeExists("searchTypes"));
         then(articleService).should().searchArticeles(eq(null), eq(null), any(Pageable.class));
-
+        then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
     }
 
     @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 검색어와 함께 호출")
@@ -84,7 +84,7 @@ class ArticleControllerTest {
         SearchType searchType = SearchType.TITLE;
         String searchValue = "title";
         given(articleService.searchArticeles(eq(searchType), eq(searchValue), any(Pageable.class))).willReturn(Page.empty());
-
+        given(paginationService.getPaginationBarNumbers(anyInt(), anyInt())).willReturn(List.of(0, 1, 2, 3, 4));
         // When & Then
         mvc.perform(
                         get("/articles")
@@ -97,6 +97,7 @@ class ArticleControllerTest {
                 .andExpect(model().attributeExists("articles"))
                 .andExpect(model().attributeExists("searchTypes"));
         then(articleService).should().searchArticeles(eq(searchType), eq(searchValue), any(Pageable.class));
+        then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
 
     }
 
@@ -111,6 +112,7 @@ class ArticleControllerTest {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Order.desc(sortName)));
         List<Integer> barNumbers = List.of(1, 2, 3, 4, 5);
         given(articleService.searchArticeles(null, null, pageable)).willReturn(Page.empty());
+        given(paginationService.getPaginationBarNumbers(pageable.getPageNumber(), Page.empty().getTotalPages())).willReturn(barNumbers);
 
         // When & Then
         mvc.perform(
@@ -125,7 +127,7 @@ class ArticleControllerTest {
                 .andExpect(model().attributeExists("articles"))
                 .andExpect(model().attribute("paginationBarNumbers", barNumbers));
         then(articleService).should().searchArticeles(null, null, pageable);
-
+        then(paginationService).should().getPaginationBarNumbers(pageable.getPageNumber(), Page.empty().getTotalPages());
          }
 
     @DisplayName("[view][GET] 게시글 페이지 - 인증 없을 땐 로그인 페이지로 이동")
@@ -184,6 +186,7 @@ class ArticleControllerTest {
         List<String> hashtags = List.of("#java", "#spring", "#boot");
         given(articleService.searchArticlesViaHashtag(eq(null), any(Pageable.class))).willReturn(Page.empty());
         given(articleService.getHashtags()).willReturn(hashtags);
+        given(paginationService.getPaginationBarNumbers(anyInt(), anyInt())).willReturn(List.of(1, 2, 3, 4, 5));
 
 
         // When & Then
@@ -197,7 +200,7 @@ class ArticleControllerTest {
                 .andExpect(model().attribute("searchType", SearchType.HASHTAG));
         then(articleService).should().searchArticlesViaHashtag(eq(null), any(Pageable.class));
         then(articleService).should().getHashtags();
-
+        then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
     }
 
     @DisplayName("[view][GET] 게시글 해시태그 검색 페이지 - 정상 호출, 해시태그 입력")
@@ -208,6 +211,7 @@ class ArticleControllerTest {
         List<String> hashtags = List.of("#java", "#spring", "#boot");
         given(articleService.searchArticlesViaHashtag(eq(hashtag), any(Pageable.class))).willReturn(Page.empty());
         given(articleService.getHashtags()).willReturn(hashtags);
+        given(paginationService.getPaginationBarNumbers(anyInt(), anyInt())).willReturn(List.of(1, 2, 3, 4, 5));
 
         // When & Then
         mvc.perform(
@@ -223,6 +227,7 @@ class ArticleControllerTest {
                 .andExpect(model().attribute("searchType", SearchType.HASHTAG));
         then(articleService).should().searchArticlesViaHashtag(eq(hashtag), any(Pageable.class));
         then(articleService).should().getHashtags();
+        then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
 
     }
 
